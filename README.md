@@ -3,17 +3,17 @@ Followed this [tutorial](https://rogueliketutorials.com/tutorials/tcod/v2/) and 
 
 ## Things that I would like to add:
 - Larger rooms
-- Specialiced rooms
+- Specialised rooms
 - More enemies
 - More gear
 - Stairs back up
 - A surface level with a little village
 - Economics for the surface village
 - A scoring system
-- Diferent types of levels
-- Light grafix
+- Different types of levels
+- Light graphics
 
 
-## Things to impliment
+## Things to implement
 - A central file that holds all setting variables
 - Better key bindings
