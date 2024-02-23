@@ -9,6 +9,7 @@ import traceback
 from typing import Optional
 
 import tcod
+from tcod import libtcodpy
 
 import color
 from engine import Engine
@@ -26,12 +27,9 @@ def new_game() -> Engine:
     map_width = 80
     map_height = 43
 
-    room_max_size = 10
+    room_max_size = 12
     room_min_size = 6
     max_rooms = 30
-
-    max_monsters_per_room = 2
-    max_items_per_room = 2
 
     player = copy.deepcopy(entity_factories.player)
 
@@ -44,8 +42,6 @@ def new_game() -> Engine:
         room_max_size=room_max_size,
         map_width=map_width,
         map_height=map_height,
-        max_monsters_per_room=max_monsters_per_room,
-        max_items_per_room=max_items_per_room,
     )
     engine.game_world.generate_floor()
     engine.update_fov()
@@ -67,7 +63,7 @@ def load_game(filename: str) -> Engine:
 class MainMenu(input_handlers.BaseEventHandler):
     """Handle the main menu rendering and input."""
 
-    def on_render(self, console: tcod.Console) -> None:
+    def on_render(self, console: tcod.console.Console) -> None:
         """Render the main menu on a background image."""
         console.draw_semigraphics(background_image, 0, 0)
 
@@ -76,14 +72,14 @@ class MainMenu(input_handlers.BaseEventHandler):
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
             fg=color.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By PointyBytes",
             fg=color.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
 
         menu_width = 24
@@ -96,8 +92,8 @@ class MainMenu(input_handlers.BaseEventHandler):
                 text.ljust(menu_width),
                 fg=color.menu_text,
                 bg=color.black,
-                alignment=tcod.CENTER,
-                bg_blend=tcod.BKGND_ALPHA(64),
+                alignment=libtcodpy.CENTER,
+                bg_blend=libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(
