@@ -11,15 +11,15 @@ from typing import Optional
 import tcod
 from tcod import libtcodpy
 
-import color
-from engine import Engine
-import entity_factories
-from game_map import GameWorld
-import input_handlers
+import game.color
+from game.engine import Engine
+import game.entity_factories
+from game.game_map import GameWorld
+import game.input_handlers
 
 
 # Load the background image and remove the alpha channel.
-background_image = tcod.image.load("menu_background.png")[:, :, :3]
+background_image = tcod.image.load("data/menu_background.png")[:, :, :3]
 
 
 def new_game() -> Engine:
@@ -31,7 +31,7 @@ def new_game() -> Engine:
     room_min_size = 6
     max_rooms = 30
 
-    player = copy.deepcopy(entity_factories.player)
+    player = copy.deepcopy(game.entity_factories.player)
 
     engine = Engine(player=player)
 
@@ -47,11 +47,12 @@ def new_game() -> Engine:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!", color.welcome_text
+        "Hello and welcome, adventurer, to yet another dungeon!",
+        game.color.welcome_text,
     )
 
-    dagger = copy.deepcopy(entity_factories.dagger)
-    leather_armor = copy.deepcopy(entity_factories.leather_armor)
+    dagger = copy.deepcopy(game.entity_factories.dagger)
+    leather_armor = copy.deepcopy(game.entity_factories.leather_armor)
 
     dagger.parent = player.inventory
     leather_armor.parent = player.inventory
@@ -73,7 +74,7 @@ def load_game(filename: str) -> Engine:
     return engine
 
 
-class MainMenu(input_handlers.BaseEventHandler):
+class MainMenu(game.input_handlers.BaseEventHandler):
     """Handle the main menu rendering and input."""
 
     def on_render(self, console: tcod.console.Console) -> None:
@@ -84,14 +85,14 @@ class MainMenu(input_handlers.BaseEventHandler):
             console.width // 2,
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
-            fg=color.menu_title,
+            fg=game.color.menu_title,
             alignment=libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By PointyBytes",
-            fg=color.menu_title,
+            fg=game.color.menu_title,
             alignment=libtcodpy.CENTER,
         )
 
@@ -103,26 +104,30 @@ class MainMenu(input_handlers.BaseEventHandler):
                 console.width // 2,
                 console.height // 2 - 2 + i,
                 text.ljust(menu_width),
-                fg=color.menu_text,
-                bg=color.black,
+                fg=game.color.menu_text,
+                bg=game.color.black,
                 alignment=libtcodpy.CENTER,
                 bg_blend=libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(
         self, event: tcod.event.KeyDown
-    ) -> Optional[input_handlers.BaseEventHandler]:
+    ) -> Optional[game.input_handlers.BaseEventHandler]:
         if event.sym in (tcod.event.KeySym.q, tcod.event.KeySym.ESCAPE):
             raise SystemExit()
         elif event.sym == tcod.event.KeySym.c:
             try:
-                return input_handlers.MainGameEventHandler(load_game("savegame.sav"))
+                return game.input_handlers.MainGameEventHandler(
+                    load_game("savegame.sav")
+                )
             except FileNotFoundError:
-                return input_handlers.PopupMessage(self, "No saved game to load.")
+                return game.input_handlers.PopupMessage(self, "No saved game to load.")
             except Exception as exc:
                 traceback.print_exc()  # Print to stderr.
-                return input_handlers.PopupMessage(self, f"Failed to load save:\n{exc}")
+                return game.input_handlers.PopupMessage(
+                    self, f"Failed to load save:\n{exc}"
+                )
         elif event.sym == tcod.event.KeySym.n:
-            return input_handlers.MainGameEventHandler(new_game())
+            return game.input_handlers.MainGameEventHandler(new_game())
 
         return None

@@ -5,12 +5,12 @@ from typing import Iterable, Iterator, Optional, TYPE_CHECKING
 import numpy as np  # type: ignore
 from tcod.console import Console
 
-from entity import Actor, Item
-import tile_types
+from game.entity import Actor, Item
+import game.tile_types
 
 if TYPE_CHECKING:
-    from engine import Engine
-    from entity import Entity
+    from game.engine import Engine
+    from game.entity import Entity
 
 
 class GameMap:
@@ -20,7 +20,9 @@ class GameMap:
         self.engine = engine
         self.width, self.height = width, height
         self.entities = set(entities)
-        self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
+        self.tiles = np.full(
+            (width, height), fill_value=game.tile_types.wall, order="F"
+        )
 
         self.visible = np.full(
             (width, height), fill_value=False, order="F"
@@ -78,7 +80,7 @@ class GameMap:
         console.rgb[0 : self.width, 0 : self.height] = np.select(
             condlist=[self.visible, self.explored],
             choicelist=[self.tiles["light"], self.tiles["dark"]],
-            default=tile_types.SHROUD,
+            default=game.tile_types.SHROUD,
         )
         entities_sorted_for_rendering = sorted(
             self.entities, key=lambda x: x.render_order.value
@@ -128,7 +130,7 @@ class GameWorld:
         self.current_floor = current_floor
 
     def generate_floor(self) -> None:
-        from procgen import generate_dungeon
+        from game.procgen import generate_dungeon
 
         self.current_floor += 1
 

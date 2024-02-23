@@ -2,20 +2,22 @@ from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING
 
-import actions
-import color
-import components.ai
-import components.inventory
-from components.base_component import BaseComponent
-from exceptions import Impossible
-from input_handlers import (
+import game.actions
+import game.color
+import game.ai
+
+import game.inventory as inventory
+from game.inventory import Inventory
+from game.base_component import BaseComponent
+from game.exceptions import Impossible
+from game.input_handlers import (
     ActionOrHandler,
     AreaRangedAttackHandler,
     SingleRangedAttackHandler,
 )
 
 if TYPE_CHECKING:
-    from entity import Actor, Item
+    from game.entity import Actor, Item
 
 
 class Consumable(BaseComponent):
@@ -23,9 +25,9 @@ class Consumable(BaseComponent):
 
     def get_action(self, consumer: Actor) -> Optional[ActionOrHandler]:
         """Try to return the action for this item."""
-        return actions.ItemAction(consumer, self.parent)
+        return game.actions.ItemAction(consumer, self.parent)
 
-    def activate(self, action: actions.ItemAction) -> None:
+    def activate(self, action: game.actions.ItemAction) -> None:
         """
         Invoke this items ability.
 
@@ -37,7 +39,7 @@ class Consumable(BaseComponent):
         """Remove the consumed item from its containing inventory."""
         entity = self.parent
         inventory = entity.parent
-        if isinstance(inventory, components.inventory.Inventory):
+        if isinstance(inventory, Inventory):
             inventory.items.remove(entity)
 
 
@@ -47,14 +49,14 @@ class ConfusionConsumable(Consumable):
 
     def get_action(self, consumer: Actor) -> SingleRangedAttackHandler:
         self.engine.message_log.add_message(
-            "Select a target location.", color.needs_target
+            "Select a target location.", game.color.needs_target
         )
         return SingleRangedAttackHandler(
             self.engine,
-            callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
+            callback=lambda xy: game.actions.ItemAction(consumer, self.parent, xy),
         )
 
-    def activate(self, action: actions.ItemAction) -> None:
+    def activate(self, action: game.actions.ItemAction) -> None:
         consumer = action.entity
         target = action.target_actor
 
@@ -67,9 +69,9 @@ class ConfusionConsumable(Consumable):
 
         self.engine.message_log.add_message(
             f"The eyes of the {target.name} look vacant, as it starts to stumble around!",
-            color.status_effect_applied,
+            game.color.status_effect_applied,
         )
-        target.ai = components.ai.ConfusedEnemy(
+        target.ai = game.ai.ConfusedEnemy(
             entity=target,
             previous_ai=target.ai,
             turns_remaining=self.number_of_turns,
@@ -81,14 +83,14 @@ class HealingConsumable(Consumable):
     def __init__(self, amount: int):
         self.amount = amount
 
-    def activate(self, action: actions.ItemAction) -> None:
+    def activate(self, action: game.actions.ItemAction) -> None:
         consumer = action.entity
         amount_recovered = consumer.fighter.heal(self.amount)
 
         if amount_recovered > 0:
             self.engine.message_log.add_message(
                 f"You consume the {self.parent.name}, and recover {amount_recovered} HP!",
-                color.health_recovered,
+                game.color.health_recovered,
             )
             self.consume()
         else:
@@ -102,15 +104,15 @@ class FireballDamageConsumable(Consumable):
 
     def get_action(self, consumer: Actor) -> AreaRangedAttackHandler:
         self.engine.message_log.add_message(
-            "Select a target location.", color.needs_target
+            "Select a target location.", game.color.needs_target
         )
         return AreaRangedAttackHandler(
             self.engine,
             radius=self.radius,
-            callback=lambda xy: actions.ItemAction(consumer, self.parent, xy),
+            callback=lambda xy: game.actions.ItemAction(consumer, self.parent, xy),
         )
 
-    def activate(self, action: actions.ItemAction) -> None:
+    def activate(self, action: game.actions.ItemAction) -> None:
         target_xy = action.target_xy
 
         if not self.engine.game_map.visible[target_xy]:
@@ -135,7 +137,7 @@ class LightningDamageConsumable(Consumable):
         self.damage = damage
         self.maximum_range = maximum_range
 
-    def activate(self, action: actions.ItemAction) -> None:
+    def activate(self, action: game.actions.ItemAction) -> None:
         consumer = action.entity
         target = None
         closest_distance = self.maximum_range + 1.0

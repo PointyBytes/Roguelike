@@ -6,19 +6,19 @@ from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
 
 import tcod
 
-import actions
-from actions import (
+import game.actions
+from game.actions import (
     Action,
     BumpAction,
     PickupAction,
     WaitAction,
 )
-import color
-import exceptions
+import game.color
+import game.exceptions
 
 if TYPE_CHECKING:
-    from engine import Engine
-    from entity import Item
+    from game.engine import Engine
+    from game.entity import Item
 
 
 MOVE_KEYS = {
@@ -97,15 +97,15 @@ class PopupMessage(BaseEventHandler):
     def on_render(self, console: tcod.console.Console) -> None:
         """Render the parent and dim the result, then print the message on top."""
         self.parent.on_render(console)
-        console.tiles_rgb["fg"] //= 8
-        console.tiles_rgb["bg"] //= 8
+        console.rgb["fg"] //= 8
+        console.rgb["bg"] //= 8
 
         console.print(
             console.width // 2,
             console.height // 2,
             self.text,
-            fg=color.white,
-            bg=color.black,
+            fg=game.color.white,
+            bg=game.color.black,
             alignment=tcod.libtcodpy.CENTER,
         )
 
@@ -143,8 +143,8 @@ class EventHandler(BaseEventHandler):
 
         try:
             action.perform()
-        except exceptions.Impossible as exc:
-            self.engine.message_log.add_message(exc.args[0], color.impossible)
+        except game.exceptions.Impossible as exc:
+            self.engine.message_log.add_message(exc.args[0], game.color.impossible)
             return False  # Skip enemy turn on exceptions.
 
         self.engine.handle_enemy_turns()
@@ -290,7 +290,7 @@ class LevelUpEventHandler(AskUserEventHandler):
             else:
                 player.level.increase_defense()
         else:
-            self.engine.message_log.add_message("Invalid entry.", color.invalid)
+            self.engine.message_log.add_message("Invalid entry.", game.color.invalid)
 
             return None
 
@@ -369,7 +369,9 @@ class InventoryEventHandler(AskUserEventHandler):
             try:
                 selected_item = player.inventory.items[index]
             except IndexError:
-                self.engine.message_log.add_message("Invalid entry.", color.invalid)
+                self.engine.message_log.add_message(
+                    "Invalid entry.", game.color.invalid
+                )
                 return None
             return self.on_item_selected(selected_item)
         return super().ev_keydown(event)
@@ -392,8 +394,8 @@ class SelectIndexHandler(AskUserEventHandler):
         """Highlight the tile under the cursor."""
         super().on_render(console)
         x, y = self.engine.mouse_location
-        console.rgb["bg"][x, y] = color.white
-        console.rgb["fg"][x, y] = color.black
+        console.rgb["bg"][x, y] = game.color.white
+        console.rgb["fg"][x, y] = game.color.black
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         """Check for key movement or confirmation keys."""
@@ -450,7 +452,7 @@ class InventoryActivateHandler(InventoryEventHandler):
             # Return the action for the selected item.
             return item.consumable.get_action(self.engine.player)
         elif item.equippable:
-            return actions.EquipAction(self.engine.player, item)
+            return game.actions.EquipAction(self.engine.player, item)
         else:
             return None
 
@@ -462,7 +464,7 @@ class InventoryDropHandler(InventoryEventHandler):
 
     def on_item_selected(self, item: Item) -> Optional[ActionOrHandler]:
         """Drop this item."""
-        return actions.DropItem(self.engine.player, item)
+        return game.actions.DropItem(self.engine.player, item)
 
 
 class SelectIndexHandler(AskUserEventHandler):
@@ -478,8 +480,8 @@ class SelectIndexHandler(AskUserEventHandler):
         """Highlight the tile under the cursor."""
         super().on_render(console)
         x, y = self.engine.mouse_location
-        console.rgb["bg"][x, y] = color.white
-        console.rgb["fg"][x, y] = color.black
+        console.rgb["bg"][x, y] = game.color.white
+        console.rgb["fg"][x, y] = game.color.black
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         """Check for key movement or confirmation keys."""
@@ -568,7 +570,7 @@ class AreaRangedAttackHandler(SelectIndexHandler):
             y=y - self.radius - 1,
             width=self.radius**2,
             height=self.radius**2,
-            fg=color.red,
+            fg=game.color.red,
             clear=False,
         )
 
@@ -588,7 +590,7 @@ class MainGameEventHandler(EventHandler):
         if key == tcod.event.KeySym.PERIOD and modifier & (
             tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
         ):
-            return actions.TakeStairsAction(player)
+            return game.actions.TakeStairsAction(player)
 
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]
@@ -622,7 +624,7 @@ class GameOverEventHandler(EventHandler):
         """Handle exiting out of a finished game."""
         if os.path.exists("savegame.sav"):
             os.remove("savegame.sav")  # Deletes the active save file.
-        raise exceptions.QuitWithoutSaving()  # Avoid saving a finished game.
+        raise game.exceptions.QuitWithoutSaving()  # Avoid saving a finished game.
 
     def ev_quit(self, event: tcod.event.Quit) -> None:
         self.on_quit()

@@ -8,13 +8,13 @@ import libtcodpy
 from tcod.console import Console
 from tcod.map import compute_fov
 
-import exceptions
-from message_log import MessageLog
-import render_functions
+import game.exceptions
+from game.message_log import MessageLog
+import game.render_functions
 
 if TYPE_CHECKING:
-    from entity import Actor
-    from game_map import GameMap, GameWorld
+    from game.entity import Actor
+    from game.game_map import GameMap, GameWorld
 
 # Number of tiles the torch illuminates.
 TORCHRADIUS = 5
@@ -34,7 +34,7 @@ class Engine:
             if entity.ai:
                 try:
                     entity.ai.perform()
-                except exceptions.Impossible:
+                except game.exceptions.Impossible:
                     pass  # Ignore impossible action exceptions from AI.
 
     def update_fov(self) -> None:
@@ -53,20 +53,20 @@ class Engine:
 
         self.message_log.render(console=console, x=21, y=45, width=40, height=5)
 
-        render_functions.render_bar(
+        game.render_functions.render_bar(
             console=console,
             current_value=self.player.fighter.hp,
             maximum_value=self.player.fighter.max_hp,
             total_width=20,
         )
 
-        render_functions.render_dungeon_level(
+        game.render_functions.render_dungeon_level(
             console=console,
             dungeon_level=self.game_world.current_floor,
             location=(0, 47),
         )
 
-        render_functions.render_names_at_mouse_location(
+        game.render_functions.render_names_at_mouse_location(
             console=console, x=21, y=44, engine=self
         )
 
