@@ -6,6 +6,8 @@ from game.inventory import Inventory
 from game.level import Level
 from game.entity import Actor, Item
 
+
+# The player
 player = Actor(
     char="@",
     color=(255, 255, 255),
@@ -17,6 +19,7 @@ player = Actor(
     level=Level(level_up_base=200),
 )
 
+# Monsters
 orc = Actor(
     char="o",
     color=(63, 127, 63),
@@ -37,7 +40,28 @@ troll = Actor(
     inventory=Inventory(capacity=0),
     level=Level(xp_given=100),
 )
+rat = Actor(
+    char="r",
+    color=(107, 122, 109),
+    name="Rat",
+    ai_cls=HostileEnemy,
+    equipment=Equipment(),
+    fighter=Fighter(hp=2, base_defense=0, base_power=2),
+    inventory=Inventory(capacity=0),
+    level=Level(xp_given=5),
+)
+walkingcadaver = Actor(
+    char="c",
+    color=(238, 122, 109),
+    name="Walking Cadaver",
+    ai_cls=HostileEnemy,
+    equipment=Equipment(),
+    fighter=Fighter(hp=50, base_defense=0, base_power=5),
+    inventory=Inventory(capacity=0),
+    level=Level(xp_given=150),
+)
 
+# Scrolls & Consumables
 confusion_scroll = Item(
     char="~",
     color=(207, 63, 255),
@@ -63,10 +87,10 @@ lightning_scroll = Item(
     consumable=game.consumable.LightningDamageConsumable(damage=20, maximum_range=5),
 )
 
+# Weapons & Armor
 dagger = Item(
     char="/", color=(0, 191, 255), name="Dagger", equippable=game.equippable.Dagger()
 )
-
 sword = Item(
     char="/", color=(0, 191, 255), name="Sword", equippable=game.equippable.Sword()
 )
@@ -77,10 +101,15 @@ leather_armor = Item(
     name="Leather Armor",
     equippable=game.equippable.LeatherArmor(),
 )
-
 chain_mail = Item(
     char="[",
     color=(139, 69, 19),
     name="Chain Mail",
     equippable=game.equippable.ChainMail(),
+)
+plate_mail = Item(
+    char="[",
+    color=(139, 69, 19),
+    name="Plate Mail",
+    equippable=game.equippable.PlateMail(),
 )

@@ -20,8 +20,12 @@ def main() -> None:
     screen_width = 80
     screen_height = 50
 
+    # The old tileset from the tutorial. Will try out another tileset below.
+    # tileset = tcod.tileset.load_tilesheet(
+    #    "data/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+    # )
     tileset = tcod.tileset.load_tilesheet(
-        "data/dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
+        "data/TiledFont.png", 32, 10, tcod.tileset.CHARMAP_TCOD
     )
 
     handler: game.input_handlers.BaseEventHandler = game.setup_game.MainMenu()
