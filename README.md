@@ -7,11 +7,12 @@ Followed this [tutorial](https://rogueliketutorials.com/tutorials/tcod/v2/) and 
   - Specialised rooms
   - Caves further down
   - Flowing water (transparent non walkable tiles)
-  - Traps
+  - Traps (a new stat that makes it possible to notice traps before stepping on them)
 - More enemies
   - Goblins
   - Skeletons
 - More gear
+  - Ranged weapons
 - Stairs back up where you spawn on the new level.
 - A surface level with a little village.
   - Economics for the surface village.
@@ -23,6 +24,6 @@ Followed this [tutorial](https://rogueliketutorials.com/tutorials/tcod/v2/) and 
 ## Things to implement
 - A central file that holds all setting variables
 - Better key bindings
-  - A file where all keys are listed and can be changed.
+  - A file where all keys are listed and can be changed. Same as the central variable file?
 - Random damage range
 - Degrading armor
