@@ -9,7 +9,6 @@ import traceback
 from typing import Optional
 
 import tcod
-from tcod import libtcodpy
 
 import game.color
 from game.engine import Engine
@@ -86,14 +85,14 @@ class MainMenu(game.input_handlers.BaseEventHandler):
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
             fg=game.color.menu_title,
-            alignment=libtcodpy.CENTER,
+            alignment=tcod.libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By PointyBytes",
             fg=game.color.menu_title,
-            alignment=libtcodpy.CENTER,
+            alignment=tcod.libtcodpy.CENTER,
         )
 
         menu_width = 24
@@ -106,8 +105,8 @@ class MainMenu(game.input_handlers.BaseEventHandler):
                 text.ljust(menu_width),
                 fg=game.color.menu_text,
                 bg=game.color.black,
-                alignment=libtcodpy.CENTER,
-                bg_blend=libtcodpy.BKGND_ALPHA(64),
+                alignment=tcod.libtcodpy.CENTER,
+                bg_blend=tcod.libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(
