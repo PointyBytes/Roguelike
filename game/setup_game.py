@@ -10,15 +10,15 @@ from typing import Optional
 
 import tcod
 
-import game.color
 from game.engine import Engine
 import game.entity_factories
 from game.game_map import GameWorld
 import game.input_handlers
+from data import background_image_file
 
 
 # Load the background image and remove the alpha channel.
-background_image = tcod.image.load("data/menu_background.png")[:, :, :3]
+background_image = tcod.image.load(f"data/{background_image_file}")[:, :, :3]
 
 
 def new_game() -> Engine:
@@ -28,7 +28,7 @@ def new_game() -> Engine:
 
     room_max_size = 12
     room_min_size = 6
-    max_rooms = 25
+    max_rooms = 30
 
     player = copy.deepcopy(game.entity_factories.player)
 
@@ -47,7 +47,7 @@ def new_game() -> Engine:
 
     engine.message_log.add_message(
         "Hello and welcome, adventurer, to yet another dungeon!",
-        game.color.welcome_text,
+        game.welcome_text,
     )
 
     dagger = copy.deepcopy(game.entity_factories.dagger)
@@ -84,14 +84,14 @@ class MainMenu(game.input_handlers.BaseEventHandler):
             console.width // 2,
             console.height // 2 - 4,
             "TOMBS OF THE ANCIENT KINGS",
-            fg=game.color.menu_title,
+            fg=game.menu_title,
             alignment=tcod.libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By PointyBytes",
-            fg=game.color.menu_title,
+            fg=game.menu_title,
             alignment=tcod.libtcodpy.CENTER,
         )
 
@@ -103,8 +103,8 @@ class MainMenu(game.input_handlers.BaseEventHandler):
                 console.width // 2,
                 console.height // 2 - 2 + i,
                 text.ljust(menu_width),
-                fg=game.color.menu_text,
-                bg=game.color.black,
+                fg=game.menu_text,
+                bg=game.black,
                 alignment=tcod.libtcodpy.CENTER,
                 bg_blend=tcod.libtcodpy.BKGND_ALPHA(64),
             )

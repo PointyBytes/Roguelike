@@ -3,7 +3,6 @@ import traceback
 
 import tcod
 
-import game.color
 from game.exceptions import QuitWithoutSaving
 import game.input_handlers
 import game.setup_game
@@ -53,7 +52,7 @@ def main() -> None:
                     # Then print the error to the message log.
                     if isinstance(handler, game.input_handlers.EventHandler):
                         handler.engine.message_log.add_message(
-                            traceback.format_exc(), game.color.error
+                            traceback.format_exc(), game.error
                         )
         except QuitWithoutSaving:
             raise

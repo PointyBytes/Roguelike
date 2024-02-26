@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-import game.color
+from game import player_die, enemy_die
 from game.base_component import BaseComponent
 from game.render_order import RenderOrder
 
@@ -54,10 +54,10 @@ class Fighter(BaseComponent):
     def die(self) -> None:
         if self.engine.player is self.parent:
             death_message = "You died!"
-            death_message_color = game.color.player_die
+            death_message_color = player_die
         else:
             death_message = f"{self.parent.name} is dead!"
-            death_message_color = game.color.enemy_die
+            death_message_color = enemy_die
 
         self.parent.char = "%"
         self.parent.color = (191, 0, 0)

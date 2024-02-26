@@ -13,7 +13,6 @@ from game.actions import (
     PickupAction,
     WaitAction,
 )
-import game.color
 import game.exceptions
 
 if TYPE_CHECKING:
@@ -104,8 +103,8 @@ class PopupMessage(BaseEventHandler):
             console.width // 2,
             console.height // 2,
             self.text,
-            fg=game.color.white,
-            bg=game.color.black,
+            fg=game.white,
+            bg=game.black,
             alignment=tcod.libtcodpy.CENTER,
         )
 
@@ -144,7 +143,7 @@ class EventHandler(BaseEventHandler):
         try:
             action.perform()
         except game.exceptions.Impossible as exc:
-            self.engine.message_log.add_message(exc.args[0], game.color.impossible)
+            self.engine.message_log.add_message(exc.args[0], game.impossible)
             return False  # Skip enemy turn on exceptions.
 
         self.engine.handle_enemy_turns()
@@ -290,7 +289,7 @@ class LevelUpEventHandler(AskUserEventHandler):
             else:
                 player.level.increase_defense()
         else:
-            self.engine.message_log.add_message("Invalid entry.", game.color.invalid)
+            self.engine.message_log.add_message("Invalid entry.", game.invalid)
 
             return None
 
@@ -369,9 +368,7 @@ class InventoryEventHandler(AskUserEventHandler):
             try:
                 selected_item = player.inventory.items[index]
             except IndexError:
-                self.engine.message_log.add_message(
-                    "Invalid entry.", game.color.invalid
-                )
+                self.engine.message_log.add_message("Invalid entry.", game.invalid)
                 return None
             return self.on_item_selected(selected_item)
         return super().ev_keydown(event)
@@ -394,8 +391,8 @@ class SelectIndexHandler(AskUserEventHandler):
         """Highlight the tile under the cursor."""
         super().on_render(console)
         x, y = self.engine.mouse_location
-        console.rgb["bg"][x, y] = game.color.white
-        console.rgb["fg"][x, y] = game.color.black
+        console.rgb["bg"][x, y] = game.white
+        console.rgb["fg"][x, y] = game.black
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         """Check for key movement or confirmation keys."""
@@ -480,8 +477,8 @@ class SelectIndexHandler(AskUserEventHandler):
         """Highlight the tile under the cursor."""
         super().on_render(console)
         x, y = self.engine.mouse_location
-        console.rgb["bg"][x, y] = game.color.white
-        console.rgb["fg"][x, y] = game.color.black
+        console.rgb["bg"][x, y] = game.white
+        console.rgb["fg"][x, y] = game.black
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         """Check for key movement or confirmation keys."""
@@ -570,7 +567,7 @@ class AreaRangedAttackHandler(SelectIndexHandler):
             y=y - self.radius - 1,
             width=self.radius**2,
             height=self.radius**2,
-            fg=game.color.red,
+            fg=game.red,
             clear=False,
         )
 
