@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from game.engine import Engine
     from game.entity import Item
 
+# TODO: Put keybindings in a settings file for customizing.
 
 MOVE_KEYS = {
     # Arrow keys.
