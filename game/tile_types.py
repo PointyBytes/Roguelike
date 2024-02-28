@@ -54,6 +54,9 @@ down_stairs = new_tile(
     dark=(ord(">"), (0, 0, 100), (50, 50, 150)),
     light=(ord(">"), (255, 255, 255), (200, 180, 50)),
 )
+
+# TODO: Add stairs back up to previous level or out of the dungeon to a small city.
+# Theese would be the stairs up.
 up_stairs = new_tile(
     walkable=True,
     transparent=True,
