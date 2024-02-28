@@ -36,3 +36,20 @@ After the player levels up the second time the player can become unbeatable and 
   - A file where all keys are listed and can be changed. Same as the central variable file?
 - Random damage range
 - Degrading armor
+
+## Controls
+Not the controls at the moment but the controls I want to implement.
+
+* `W` - move up
+* `A` - move left
+* `S` - move down
+* `D` - move right
+* `i` - show inventory
+    * `W` - move up
+    * `S` - move down
+    * `Enter` - use, equip, or unequip item
+    * `ESC` - exit inventory
+    * `space` - drop item
+* `space` - wait one turn
+* `ESC` - save menu
+* `Left Click` - select monster as target
