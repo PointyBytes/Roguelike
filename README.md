@@ -53,3 +53,36 @@ Not the controls at the moment but the controls I want to implement.
 * `space` - wait one turn
 * `ESC` - save menu
 * `Left Click` - select monster as target
+
+## 
+
+`.`   A floor space
+`^`   A trap (known)
+`   A glyph of warding
+`'`   An open door      
+`<`   A staircase up    
+`>`   A staircase down  
+`#`   A wall
+`+`   A closed door
+`%`   A mineral vein
+`*`   A mineral vein with treasure
+`:`   A pile of rubble     
+`!`   A potion (or flask)            
+`?`   A scroll (or book)             
+`,`   A mushroom (or food)           
+`-`   A wand or rod                  
+`_`   A staff                        
+`=`   A ring                         
+`"`   An amulet                      
+`$`   Gold or gems                   
+`~`   Lights, Tools, Chests, etc     
+`&`   Multiple items
+`/`   A pole-arm
+`|`   An edged weapon
+`\`   A hafted weapon
+`}`   A sling, bow, or x-bow
+`{`   A shot, arrow, or bolt
+`(`   Soft armour
+`[`   Hard armour
+`]`   Misc. armour
+`)`   A shield
