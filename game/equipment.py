@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Optional, TYPE_CHECKING
 
 from game.base_component import BaseComponent
-from game.equipment_types import EquipmentType
+from game.equippable import EquipmentType
 
 if TYPE_CHECKING:
     from game.entity import Actor, Item
