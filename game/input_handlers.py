@@ -55,11 +55,28 @@ WAIT_KEYS = {
     tcod.event.KeySym.PERIOD,
     tcod.event.KeySym.KP_5,
     tcod.event.KeySym.CLEAR,
+    tcod.event.KeySym.SPACE,
 }
 
 CONFIRM_KEYS = {
     tcod.event.KeySym.RETURN,
     tcod.event.KeySym.KP_ENTER,
+}
+
+CURSOR_Y_KEYS = {
+    tcod.event.KeySym.UP: -1,
+    tcod.event.KeySym.DOWN: 1,
+    tcod.event.KeySym.PAGEUP: -10,
+    tcod.event.KeySym.PAGEDOWN: 10,
+}
+
+MODIFIER_KEYS = {
+    tcod.event.KeySym.LSHIFT,
+    tcod.event.KeySym.RSHIFT,
+    tcod.event.KeySym.LCTRL,
+    tcod.event.KeySym.RCTRL,
+    tcod.event.KeySym.LALT,
+    tcod.event.KeySym.RALT,
 }
 
 ActionOrHandler = Union[Action, "BaseEventHandler"]
@@ -165,14 +182,7 @@ class AskUserEventHandler(EventHandler):
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
         """By default any key exits this input handler."""
-        if event.sym in {  # Ignore modifier keys.
-            tcod.event.KeySym.LSHIFT,
-            tcod.event.KeySym.RSHIFT,
-            tcod.event.KeySym.LCTRL,
-            tcod.event.KeySym.RCTRL,
-            tcod.event.KeySym.LALT,
-            tcod.event.KeySym.RALT,
-        }:
+        if event.sym in MODIFIER_KEYS:  # Ignore modifier keys.
             return None
         return self.on_exit()
 
@@ -585,9 +595,7 @@ class MainGameEventHandler(EventHandler):
 
         player = self.engine.player
 
-        if key == tcod.event.KeySym.PERIOD and modifier & (
-            tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT
-        ):
+        if key == tcod.event.KeySym.s:
             return game.actions.TakeStairsAction(player)
 
         if key in MOVE_KEYS:
@@ -610,7 +618,7 @@ class MainGameEventHandler(EventHandler):
             return InventoryDropHandler(self.engine)
         elif key == tcod.event.KeySym.c:
             return CharacterScreenEventHandler(self.engine)
-        elif key == tcod.event.KeySym.q:  # SLASH:
+        elif key == tcod.event.KeySym.f:
             return LookHandler(self.engine)
 
         # No valid key was pressed
@@ -630,14 +638,6 @@ class GameOverEventHandler(EventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> None:
         if event.sym == tcod.event.KeySym.ESCAPE:
             self.on_quit()
-
-
-CURSOR_Y_KEYS = {
-    tcod.event.KeySym.UP: -1,
-    tcod.event.KeySym.DOWN: 1,
-    tcod.event.KeySym.PAGEUP: -10,
-    tcod.event.KeySym.PAGEDOWN: 10,
-}
 
 
 class HistoryViewer(EventHandler):
