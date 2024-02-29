@@ -1,4 +1,4 @@
-from game.ai import HostileEnemy
+from game.ai import HostileEnemy, RangedEnemy
 import game.consumable, game.equippable
 from game.equipment import Equipment
 from game.fighter import Fighter
@@ -44,13 +44,13 @@ rat = Actor(
     char="r",
     color=(107, 122, 109),
     name="Rat",
-    ai_cls=HostileEnemy,
+    ai_cls=RangedEnemy,
     equipment=Equipment(),
     fighter=Fighter(hp=2, base_defense=0, base_power=2),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=5),
 )
-walkingcadaver = Actor(
+walking_cadaver = Actor(
     char="c",
     color=(238, 122, 109),
     name="Walking Cadaver",
@@ -79,6 +79,12 @@ health_potion = Item(
     color=(127, 0, 255),
     name="Health Potion",
     consumable=game.consumable.HealingConsumable(amount=4),
+)
+large_health_potion = Item(
+    char="!",
+    color=(127, 0, 255),
+    name="Large Health Potion",
+    consumable=game.consumable.HealingConsumable(amount=8),
 )
 lightning_scroll = Item(
     char="~",

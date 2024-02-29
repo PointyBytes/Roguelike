@@ -121,3 +121,43 @@ class HostileEnemy(BaseAI):
             ).perform()
 
         return WaitAction(self.entity).perform()
+
+
+class RangedEnemy(BaseAI):
+    def __init__(self, entity: Actor):
+        super().__init__(entity)
+        self.path: List[Tuple[int, int]] = []
+
+    def perform(self) -> None:
+        target = self.engine.player
+        dx = target.x - self.entity.x
+        dy = target.y - self.entity.y
+        distance = max(abs(dx), abs(dy))  # Chebyshev distance.
+
+        # If the player is visible and within a certain distance
+        if self.engine.game_map.visible[self.entity.x, self.entity.y]:
+            if distance <= 3:  # Adjust threshold distance here
+                # Attack if the player is within reach
+                if distance == 1:
+                    return MeleeAction(self.entity, dx, dy).perform()
+                else:
+                    return WaitAction(self.entity).perform()
+
+            # Get the path to the player
+            self.path = self.get_path_to(target.x, target.y)
+
+        # If there is a path to follow
+        if self.path:
+            # Take only one step at a time towards the player to maintain distance
+            dest_x, dest_y = self.path.pop(0)
+            if abs(dest_x - self.entity.x) + abs(dest_y - self.entity.y) <= 1:
+                return WaitAction(self.entity).perform()
+            else:
+                return MovementAction(
+                    self.entity,
+                    dest_x - self.entity.x,
+                    dest_y - self.entity.y,
+                ).perform()
+
+        # Otherwise, wait
+        return WaitAction(self.entity).perform()
