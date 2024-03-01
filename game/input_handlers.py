@@ -219,7 +219,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             x=x,
             y=y,
             width=width,
-            height=7,
+            height=9,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
@@ -244,6 +244,16 @@ class CharacterScreenEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defense}"
         )
+        console.print(
+            x=x + 1,
+            y=y + 6,
+            string=f"Dexterity: {self.engine.player.fighter.dexterity}",
+        )
+        console.print(
+            x=x + 1,
+            y=y + 7,
+            string=f"Perception: {self.engine.player.fighter.perception}",
+        )
 
 
 class LevelUpEventHandler(AskUserEventHandler):
@@ -261,7 +271,7 @@ class LevelUpEventHandler(AskUserEventHandler):
             x=x,
             y=0,
             width=35,
-            height=8,
+            height=9,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
@@ -284,7 +294,12 @@ class LevelUpEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1,
             y=6,
-            string=f"c) Agility (+1 defense, from {self.engine.player.fighter.defense})",
+            string=f"c) Dexterity (+1 dodge, from {self.engine.player.fighter.dexterity})",
+        )
+        console.print(
+            x=x + 1,
+            y=7,
+            string=f"d) Perception (+1 perception, from {self.engine.player.fighter.perception})",
         )
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
@@ -292,13 +307,15 @@ class LevelUpEventHandler(AskUserEventHandler):
         key = event.sym
         index = key - tcod.event.KeySym.a
 
-        if 0 <= index <= 2:
+        if 0 <= index <= 3:
             if index == 0:
                 player.level.increase_max_hp()
             elif index == 1:
                 player.level.increase_power()
+            elif index == 2:
+                player.level.increase_dexterity()
             else:
-                player.level.increase_defense()
+                player.level.increase_perception()
         else:
             self.engine.message_log.add_message("Invalid entry.", game.invalid)
 

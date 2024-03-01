@@ -82,7 +82,7 @@ class StunnedEffect(GameEffect):
         super().__init__("Stunned", duration, 0)
 
 
-# Old code to be merged with the code above. Note that there is a different coding style to the one above.
+# TODO: Old code to be merged with the code above. Note that there is a different coding style to the one above.
 class GameEffect:
     """Describes a persistent effect on an Entity."""
 

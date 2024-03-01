@@ -14,7 +14,9 @@ player = Actor(
     name="Player",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=30, base_defense=1, base_power=2),
+    fighter=Fighter(
+        hp=30, base_defense=1, base_power=2, base_dexterity=1, base_perception=1
+    ),
     inventory=Inventory(capacity=26),
     level=Level(level_up_base=200),
 )
@@ -26,7 +28,9 @@ orc = Actor(
     name="Orc",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=10, base_defense=0, base_power=3),
+    fighter=Fighter(
+        hp=10, base_defense=0, base_power=3, base_dexterity=1, base_perception=0
+    ),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=35),
 )
@@ -36,7 +40,9 @@ troll = Actor(
     name="Troll",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=16, base_defense=1, base_power=4),
+    fighter=Fighter(
+        hp=16, base_defense=1, base_power=4, base_dexterity=1, base_perception=0
+    ),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=100),
 )
@@ -46,7 +52,9 @@ rat = Actor(
     name="Rat",
     ai_cls=RangedEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=2, base_defense=0, base_power=2),
+    fighter=Fighter(
+        hp=2, base_defense=0, base_power=2, base_dexterity=4, base_perception=0
+    ),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=5),
 )
@@ -56,7 +64,9 @@ walking_cadaver = Actor(
     name="Walking Cadaver",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=50, base_defense=0, base_power=5),
+    fighter=Fighter(
+        hp=50, base_defense=0, base_power=5, base_dexterity=0, base_perception=0
+    ),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=150),
 )

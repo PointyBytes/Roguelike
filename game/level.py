@@ -66,9 +66,16 @@ class Level(BaseComponent):
 
         self.increase_level()
 
-    def increase_defense(self, amount: int = 1) -> None:
-        self.parent.fighter.base_defense += amount
+    def increase_dexterity(self, amount: int = 1) -> None:
+        self.parent.fighter.base_dexterity += amount
 
         self.engine.message_log.add_message("Your movements are getting swifter!")
+
+        self.increase_level()
+
+    def increase_perception(self, amount: int = 1) -> None:
+        self.parent.fighter.base_perception += amount
+
+        self.engine.message_log.add_message("Your perception is getting sharper!")
 
         self.increase_level()

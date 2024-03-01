@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Optional, Tuple, TYPE_CHECKING
 
 import game.exceptions
+import random
 
 if TYPE_CHECKING:
     from game.engine import Engine
@@ -147,8 +148,18 @@ class MeleeAction(ActionWithDirection):
         if not target:
             raise game.exceptions.Impossible("Nothing to attack.")
 
-        damage = self.entity.fighter.power - target.fighter.defense
+        attacker_dexterity = self.entity.fighter.base_dexterity
+        defender_dexterity = target.fighter.base_dexterity
+        dodge_chance = calculate_dodge_chance(attacker_dexterity, defender_dexterity)
 
+        # Check if the defender successfully dodges the attack
+        if random.random() < dodge_chance:
+            self.engine.message_log.add_message(
+                f"{target.name.capitalize()} dodges the attack!"
+            )
+            return  # No damage dealt if the attack is dodged
+
+        damage = self.entity.fighter.power - target.fighter.defense
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         if self.entity is self.engine.player:
             attack_color = game.player_atk
@@ -164,6 +175,13 @@ class MeleeAction(ActionWithDirection):
             self.engine.message_log.add_message(
                 f"{attack_desc} but does no damage.", attack_color
             )
+
+
+def calculate_dodge_chance(attacker_dexterity: int, defender_dexterity: int) -> float:
+    dexterity_difference = attacker_dexterity - defender_dexterity
+    # TODO: Adjust dodge chance based on dexterity difference
+    dodge_chance = max(0.0, 0.1 + dexterity_difference * 0.05)
+    return min(1.0, dodge_chance)
 
 
 class MovementAction(ActionWithDirection):
