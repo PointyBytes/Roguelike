@@ -1,4 +1,4 @@
-from game.ai import HostileEnemy, RangedEnemy
+from game.ai import HostileEnemy, SkittishEnemy
 import game.consumable, game.equippable
 from game.equipment import Equipment
 from game.fighter import Fighter
@@ -50,7 +50,7 @@ rat = Actor(
     char="r",
     color=(107, 122, 109),
     name="Rat",
-    ai_cls=RangedEnemy,
+    ai_cls=SkittishEnemy,
     equipment=Equipment(),
     fighter=Fighter(
         hp=2, base_defense=0, base_power=2, base_dexterity=4, base_perception=0

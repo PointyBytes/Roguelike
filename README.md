@@ -5,6 +5,9 @@ After the player levels up the second time the player can become unbeatable and 
 
 
 ## Ideas I want to add:
+- Traps
+  - Spiks
+  - Trapdoors
 - Different types of levels
   - Larger rooms
   - Specialised rooms
