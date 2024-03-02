@@ -179,8 +179,9 @@ class MeleeAction(ActionWithDirection):
 
 def calculate_dodge_chance(attacker_dexterity: int, defender_dexterity: int) -> float:
     dexterity_difference = attacker_dexterity - defender_dexterity
-    # TODO: Adjust dodge chance based on dexterity difference
-    dodge_chance = max(0.0, 0.1 + dexterity_difference * 0.05)
+    # TODO: Scale dodge chance based on dexterity difference.
+    # TODO: Adjust the constants to fine-tune dodge behavior.
+    dodge_chance = max(0.0, 0.2 + dexterity_difference)
     return min(1.0, dodge_chance)
 
 

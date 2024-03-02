@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Iterable, Iterator, Optional, TYPE_CHECKING
 
-import numpy as np  # type: ignore
+import numpy as np
 from tcod.console import Console
 
 from game.entity import Actor, Item
@@ -30,8 +30,6 @@ class GameMap:
         self.explored = np.full(
             (width, height), fill_value=False, order="F"
         )  # Tiles the player has seen before
-
-        # self.downstairs_location = (0, 0)
 
     @property
     def gamemap(self) -> GameMap:

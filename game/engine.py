@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import lzma
-import pickle
+from lzma import compress
+from pickle import dumps
 from typing import TYPE_CHECKING
 
 import libtcodpy
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from game.game_map import GameMap, GameWorld
 
 # Number of tiles the torch illuminates.
-TORCHRADIUS = 5
+TORCHRADIUS = 8
 
 
 class Engine:
@@ -42,7 +42,7 @@ class Engine:
         self.game_map.visible[:] = compute_fov(
             self.game_map.tiles["transparent"],
             (self.player.x, self.player.y),
-            algorithm=libtcodpy.FOV_SHADOW,
+            algorithm=libtcodpy.FOV_SYMMETRIC_SHADOWCAST,
             radius=TORCHRADIUS,
         )
         # If a tile is "visible" it should be added to "explored".
@@ -72,6 +72,6 @@ class Engine:
 
     def save_as(self, filename: str) -> None:
         """Save this Engine instance as a compressed file."""
-        save_data = lzma.compress(pickle.dumps(self))
+        save_data = compress(dumps(self))
         with open(filename, "wb") as f:
             f.write(save_data)

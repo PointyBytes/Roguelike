@@ -25,7 +25,7 @@ tile_dt = np.dtype(
 def new_tile(
     *,  # Enforce the use of keywords, so that parameter order doesn't matter.
     walkable: int,
-    transparent: int,
+    transparent: bool,
     dark: Tuple[int, Tuple[int, int, int], Tuple[int, int, int]],
     light: Tuple[int, Tuple[int, int, int], Tuple[int, int, int]],
 ) -> np.ndarray:
@@ -48,7 +48,7 @@ wall = new_tile(
     dark=(ord(" "), (255, 255, 255), (0, 0, 100)),
     light=(ord(" "), (255, 255, 255), (130, 110, 50)),
 )
-down_stairs = new_tile(
+stairs_down = new_tile(
     walkable=True,
     transparent=True,
     dark=(ord(">"), (0, 0, 100), (50, 50, 150)),
@@ -57,7 +57,7 @@ down_stairs = new_tile(
 
 # TODO: Add stairs back up to previous level or out of the dungeon to a small city.
 # Theese would be the stairs up.
-up_stairs = new_tile(
+stairs_up = new_tile(
     walkable=True,
     transparent=True,
     dark=(ord("<"), (0, 0, 100), (50, 50, 150)),

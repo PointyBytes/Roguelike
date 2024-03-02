@@ -46,7 +46,7 @@ def new_game() -> Engine:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!",
+        "Hello and welcome, adventurer, to yet another dungeon!\nThis is how you perish!",
         game.welcome_text,
     )
 
