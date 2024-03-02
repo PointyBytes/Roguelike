@@ -299,7 +299,7 @@ class LevelUpEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1,
             y=7,
-            string=f"d) Perception (+1 perception, from {self.engine.player.fighter.perception})",
+            string=f"d) Perception (+1 spot hidden, from {self.engine.player.fighter.perception})",
         )
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:
@@ -613,7 +613,7 @@ class MainGameEventHandler(EventHandler):
         player = self.engine.player
 
         if key == tcod.event.KeySym.s:
-            return game.actions.TakeStairsAction(player)
+            return game.actions.TakeStairsDownAction(player)
 
         if key in MOVE_KEYS:
             dx, dy = MOVE_KEYS[key]

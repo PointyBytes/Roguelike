@@ -23,6 +23,13 @@ After the player levels up the second time the player can become unbeatable and 
 - More gear
   - Ranged weapons
   - Shields
+  - Off-hand weapons/shields
+- More slots for gear
+  - Head
+  - Body
+  - Arms
+  - Legs
+- Soft and hard armor that affects Dexterity
 - States that can affect both the player and the monsters.
   - Poisoned
   - Disease
@@ -39,6 +46,7 @@ After the player levels up the second time the player can become unbeatable and 
   - A file where all keys are listed and can be changed. Same as the central variable file?
 - Random damage range
 - Degrading armor
+- Particle effects
 
 ## Controls
 Not the controls at the moment but the controls I want to implement.

@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from game.entity import Actor
 
 
+# TODO: Add Constitution so the player can resist poisons
 class Fighter(BaseComponent):
     parent: Actor
 
@@ -20,6 +21,7 @@ class Fighter(BaseComponent):
         base_power: int,
         base_perception: int,
         base_dexterity: int,
+        # base_constitution: int
     ):
         self.max_hp = hp
         self._hp = hp
@@ -27,6 +29,7 @@ class Fighter(BaseComponent):
         self.base_power = base_power
         self.base_perception = base_perception
         self.base_dexterity = base_dexterity
+        # self.base_constitution = base_constitution
 
     @property
     def hp(self) -> int:
