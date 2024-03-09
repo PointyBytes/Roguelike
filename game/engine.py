@@ -53,10 +53,17 @@ class Engine:
 
         self.message_log.render(console=console, x=21, y=45, width=40, height=5)
 
-        game.render_functions.render_bar(
+        game.render_functions.render_hp_bar(
             console=console,
             current_value=self.player.fighter.hp,
             maximum_value=self.player.fighter.max_hp,
+            total_width=20,
+        )
+        game.render_functions.render_exp_bar(
+            console=console,
+            current_value=self.player.level.current_xp,
+            maximum_value=self.player.level.level_up_factor
+            + self.player.level.level_up_base,
             total_width=20,
         )
 

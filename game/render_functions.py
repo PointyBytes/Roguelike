@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from typing import Tuple, TYPE_CHECKING
 
-from game import bar_empty, bar_filled, bar_text
+from game import (
+    hp_bar_empty,
+    hp_bar_filled,
+    hp_bar_text,
+    exp_bar_empty,
+    exp_bar_filled,
+    exp_bar_text,
+)
 
 if TYPE_CHECKING:
     from tcod import Console
@@ -21,17 +28,32 @@ def get_names_at_location(x: int, y: int, game_map: GameMap) -> str:
     return names.capitalize()
 
 
-def render_bar(
+def render_hp_bar(
     console: Console, current_value: int, maximum_value: int, total_width: int
 ) -> None:
     bar_width = int(float(current_value) / maximum_value * total_width)
 
-    console.draw_rect(x=0, y=45, width=total_width, height=1, ch=1, bg=bar_empty)
+    console.draw_rect(x=0, y=45, width=total_width, height=1, ch=1, bg=hp_bar_empty)
 
     if bar_width > 0:
-        console.draw_rect(x=0, y=45, width=bar_width, height=1, ch=1, bg=bar_filled)
+        console.draw_rect(x=0, y=45, width=bar_width, height=1, ch=1, bg=hp_bar_filled)
 
-    console.print(x=1, y=45, string=f"HP: {current_value}/{maximum_value}", fg=bar_text)
+    console.print(
+        x=1, y=45, string=f"HP: {current_value}/{maximum_value}", fg=hp_bar_text
+    )
+
+
+def render_exp_bar(
+    console: Console, current_value: int, maximum_value: int, total_width: int
+) -> None:
+    bar_width = int(float(current_value) / maximum_value * total_width)
+    console.draw_rect(x=0, y=46, width=total_width, height=1, ch=1, bg=exp_bar_empty)
+    if bar_width > 0:
+        console.draw_rect(x=0, y=46, width=bar_width, height=1, ch=1, bg=exp_bar_filled)
+
+    console.print(
+        x=1, y=46, string=f"EXP: {current_value}/{maximum_value}", fg=exp_bar_text
+    )
 
 
 def render_dungeon_level(
