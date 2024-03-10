@@ -62,8 +62,8 @@ class Engine:
         game.render_functions.render_exp_bar(
             console=console,
             current_value=self.player.level.current_xp,
-            maximum_value=self.player.level.level_up_factor
-            + self.player.level.level_up_base,
+            maximum_value=self.player.level.level_up_base
+            + self.player.level.current_level * self.player.level.level_up_factor,
             total_width=20,
         )
 
