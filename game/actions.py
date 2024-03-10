@@ -153,7 +153,7 @@ class MeleeAction(ActionWithDirection):
         dodge_chance = calculate_dodge_chance(attacker_dexterity, defender_dexterity)
 
         # Check if the defender successfully dodges the attack
-        if random.random() < dodge_chance:
+        if random.randint(1, 20) < dodge_chance:
             self.engine.message_log.add_message(
                 f"{target.name.capitalize()} dodges the attack!"
             )
@@ -177,12 +177,9 @@ class MeleeAction(ActionWithDirection):
             )
 
 
-def calculate_dodge_chance(attacker_dexterity: int, defender_dexterity: int) -> float:
-    dexterity_difference = attacker_dexterity - defender_dexterity
+def calculate_dodge_chance(attacker_dexterity: int, defender_dexterity: int) -> int:
     # TODO: Scale dodge chance based on dexterity difference.
-    # TODO: Adjust the constants to fine-tune dodge behavior.
-    dodge_chance = max(0.0, 0.2 + dexterity_difference)
-    return min(1.0, dodge_chance)
+    return defender_dexterity - attacker_dexterity
 
 
 class MovementAction(ActionWithDirection):

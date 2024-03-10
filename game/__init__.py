@@ -1,32 +1,32 @@
 """Game namespace package."""
 
-white = (0xFF, 0xFF, 0xFF)
-black = (0x0, 0x0, 0x0)
-red = (0xFF, 0x0, 0x0)
+white = (255, 255, 255)
+black = (0, 0, 0)
+red = (255, 0, 0)
 
-player_atk = (0xE0, 0xE0, 0xE0)
-enemy_atk = (0xFF, 0xC0, 0xC0)
-needs_target = (0x3F, 0xFF, 0xFF)
-status_effect_applied = (0x3F, 0xFF, 0x3F)
-descend = (0x9F, 0x3F, 0xFF)
+player_atk = (224, 224, 224)
+enemy_atk = (255, 192, 192)
+needs_target = (63, 255, 255)
+status_effect_applied = (63, 255, 63)
+descend = (159, 63, 255)
 
-player_die = (0xFF, 0x30, 0x30)
-enemy_die = (0xFF, 0xA0, 0x30)
+player_die = (255, 48, 48)
+enemy_die = (255, 160, 48)
 
-invalid = (0xFF, 0xFF, 0x00)
-impossible = (0x80, 0x80, 0x80)
-error = (0xFF, 0x40, 0x40)
+invalid = (255, 255, 0)
+impossible = (128, 128, 128)
+error = (255, 64, 64)
 
-welcome_text = (0x20, 0xA0, 0xFF)
-health_recovered = (0x0, 0xFF, 0x0)
+welcome_text = (32, 160, 255)
+health_recovered = (0, 255, 0)
 
 hp_bar_text = white
-hp_bar_filled = (0x0, 0x60, 0x0)
-hp_bar_empty = (0x40, 0x10, 0x10)
+hp_bar_filled = (0, 96, 0)
+hp_bar_empty = (64, 16, 16)
 
 exp_bar_text = white
-exp_bar_filled = (0x20, 0x20, 0x90)
-exp_bar_empty = (0x10, 0x10, 0x40)
+exp_bar_filled = (32, 32, 144)
+exp_bar_empty = (16, 16, 64)
 
 menu_title = (255, 255, 63)
 menu_text = white

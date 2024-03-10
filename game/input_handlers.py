@@ -299,7 +299,7 @@ class LevelUpEventHandler(AskUserEventHandler):
         console.print(
             x=x + 1,
             y=7,
-            string=f"d) Perception (+1 spot hidden, from {self.engine.player.fighter.perception})",
+            string=f"d) Perception (+1 detect, from {self.engine.player.fighter.perception})",
         )
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[ActionOrHandler]:

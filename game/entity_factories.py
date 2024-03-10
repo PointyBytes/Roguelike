@@ -48,12 +48,12 @@ troll = Actor(
 )
 rat = Actor(
     char="r",
-    color=(107, 122, 109),
+    color=(122, 122, 122),
     name="Rat",
     ai_cls=SkittishEnemy,
     equipment=Equipment(),
     fighter=Fighter(
-        hp=2, base_defense=0, base_power=2, base_dexterity=4, base_perception=0
+        hp=2, base_defense=0, base_power=2, base_dexterity=6, base_perception=0
     ),
     inventory=Inventory(capacity=0),
     level=Level(xp_given=5),
@@ -88,13 +88,13 @@ health_potion = Item(
     char="!",
     color=(127, 0, 255),
     name="Health Potion",
-    consumable=game.consumable.HealingConsumable(amount=4),
+    consumable=game.consumable.HealingConsumable(amount=5),
 )
 large_health_potion = Item(
     char="!",
-    color=(127, 0, 255),
+    color=(190, 0, 255),
     name="Large Health Potion",
-    consumable=game.consumable.HealingConsumable(amount=8),
+    consumable=game.consumable.HealingConsumable(amount=10),
 )
 lightning_scroll = Item(
     char="~",
@@ -105,10 +105,13 @@ lightning_scroll = Item(
 
 # Weapons & Armor
 dagger = Item(
-    char="/", color=(0, 191, 255), name="Dagger", equippable=game.equippable.Dagger()
+    char="|", color=(0, 191, 255), name="Dagger", equippable=game.equippable.Dagger()
 )
 sword = Item(
-    char="/", color=(0, 191, 255), name="Sword", equippable=game.equippable.Sword()
+    char="|", color=(0, 191, 255), name="Sword", equippable=game.equippable.Sword()
+)
+polearm = Item(
+    char="/", color=(173, 76, 0), name="Polearm", equippable=game.equippable.Polearm()
 )
 
 leather_armor = Item(

@@ -65,11 +65,11 @@ Not the controls at the moment but the controls I want to implement.
 * `ESC` - save menu
 * `Left Click` - select monster as target
 
-## 
+##
 
-`.`   A floor space
+` `   A floor space
 `^`   A trap (known)
-`   A glyph of warding
+`´`   A glyph of warding
 `'`   An open door      
 `<`   A staircase up    
 `>`   A staircase down  
@@ -93,7 +93,7 @@ Not the controls at the moment but the controls I want to implement.
 `\`   A hafted weapon
 `}`   A sling, bow, or x-bow
 `{`   A shot, arrow, or bolt
-`(`   Soft armour
-`[`   Hard armour
+`(`   Soft armor
+`[`   Hard armor
 `]`   Misc. armour
 `)`   A shield
