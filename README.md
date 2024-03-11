@@ -8,6 +8,7 @@ After the player levels up the second time the player can become unbeatable and 
 - Traps
   - Spiks
   - Trapdoors
+  - Arrows
 - Different types of levels
   - Larger rooms
   - Specialised rooms
@@ -30,6 +31,10 @@ After the player levels up the second time the player can become unbeatable and 
   - Arms
   - Legs
 - Soft and hard armor that affects Dexterity
+- Different weapon characteristics for soft and hard armor.
+  - Piercing
+  - Slashing
+  - Cruching
 - States that can affect both the player and the monsters.
   - Poisoned
   - Disease
@@ -44,6 +49,7 @@ After the player levels up the second time the player can become unbeatable and 
 - A central file that holds all setting variables
 - Better key bindings
   - A file where all keys are listed and can be changed. Same as the central variable file?
+  - Key bindings can be found in game/input_handlers.py
 - Random damage range
 - Degrading armor
 - Particle effects
