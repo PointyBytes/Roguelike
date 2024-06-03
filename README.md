@@ -45,7 +45,6 @@ After the player levels up the second time the player can become unbeatable and 
 - A surface level with a little village.
   - Economics for the surface village.
   - This could be a menu.
-- Light graphics or at least sprites
 - A central file that holds all setting variables
 - Better key bindings
   - A file where all keys are listed and can be changed. Same as the central variable file?
