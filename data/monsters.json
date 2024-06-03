@@ -1,0 +1,26 @@
+{
+    "orc": {
+        "char": "o",
+        "color": [
+            63,
+            127,
+            63
+        ],
+        "name": "Orc",
+        "blocks_movement": true,
+        "hp": 10,
+        "attack": 3
+    },
+    "troll": {
+        "char": "T",
+        "color": [
+            0,
+            127,
+            0
+        ],
+        "name": "Troll",
+        "blocks_movement": true,
+        "hp": 16,
+        "attack": 5
+    }
+}

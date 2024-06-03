@@ -1,0 +1,23 @@
+{
+    "health_potion": {
+        "char": "!",
+        "color": [
+            255,
+            0,
+            0
+        ],
+        "name": "Health Potion",
+        "healing_amount": 4
+    },
+    "lightning_scroll": {
+        "char": "~",
+        "color": [
+            255,
+            255,
+            0
+        ],
+        "name": "Lightning Scroll",
+        "damage": 20,
+        "range": 5
+    }
+}
