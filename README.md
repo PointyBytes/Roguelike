@@ -102,3 +102,8 @@ Not the controls at the moment but the controls I want to implement.
 `[`   Hard armor
 `]`   Misc. armour
 `)`   A shield
+
+
+## License
+
+This project is open source and available under the **GNU GPL v3.0 or later**. You can find the full license text in the [LICENSE](LICENSE) file within this repository.
