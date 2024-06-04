@@ -1,13 +1,56 @@
 {
-    "health_potion": {
-        "char": "!",
+    "confusion_scroll": {
+        "char": "~",
+        "color": [
+            207,
+            63,
+            255
+        ],
+        "name": "Confusion Scroll",
+        "consumable": {
+            "type": "ConfusionConsumable",
+            "number_of_turns": 10
+        }
+    },
+    "fireball_scroll": {
+        "char": "~",
         "color": [
             255,
             0,
             0
         ],
+        "name": "Fireball Scroll",
+        "consumable": {
+            "type": "FireballDamageConsumable",
+            "damage": 12,
+            "radius": 3
+        }
+    },
+    "health_potion": {
+        "char": "!",
+        "color": [
+            127,
+            0,
+            255
+        ],
         "name": "Health Potion",
-        "healing_amount": 4
+        "consumable": {
+            "type": "HealingConsumable",
+            "amount": 5
+        }
+    },
+    "large_health_potion": {
+        "char": "!",
+        "color": [
+            190,
+            0,
+            255
+        ],
+        "name": "Large Health Potion",
+        "consumable": {
+            "type": "HealingConsumable",
+            "amount": 10
+        }
     },
     "lightning_scroll": {
         "char": "~",
@@ -17,7 +60,82 @@
             0
         ],
         "name": "Lightning Scroll",
-        "damage": 20,
-        "range": 5
+        "consumable": {
+            "type": "LightningDamageConsumable",
+            "damage": 20,
+            "maximum_range": 5
+        }
+    },
+    "dagger": {
+        "char": "|",
+        "color": [
+            0,
+            191,
+            255
+        ],
+        "name": "Dagger",
+        "equippable": {
+            "type": "Dagger"
+        }
+    },
+    "sword": {
+        "char": "|",
+        "color": [
+            0,
+            191,
+            255
+        ],
+        "name": "Sword",
+        "equippable": {
+            "type": "Sword"
+        }
+    },
+    "polearm": {
+        "char": "/",
+        "color": [
+            173,
+            76,
+            0
+        ],
+        "name": "Polearm",
+        "equippable": {
+            "type": "Polearm"
+        }
+    },
+    "leather_armor": {
+        "char": "[",
+        "color": [
+            139,
+            69,
+            19
+        ],
+        "name": "Leather Armor",
+        "equippable": {
+            "type": "LeatherArmor"
+        }
+    },
+    "chain_mail": {
+        "char": "[",
+        "color": [
+            139,
+            69,
+            19
+        ],
+        "name": "Chain Mail",
+        "equippable": {
+            "type": "ChainMail"
+        }
+    },
+    "plate_mail": {
+        "char": "[",
+        "color": [
+            139,
+            69,
+            19
+        ],
+        "name": "Plate Mail",
+        "equippable": {
+            "type": "PlateMail"
+        }
     }
 }

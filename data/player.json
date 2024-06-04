@@ -1,0 +1,24 @@
+{
+    "char": "@",
+    "color": [
+        255,
+        255,
+        255
+    ],
+    "name": "Player",
+    "ai_cls": "HostileEnemy",
+    "equipment": {},
+    "fighter": {
+        "hp": 30,
+        "base_defense": 1,
+        "base_power": 2,
+        "base_dexterity": 1,
+        "base_perception": 1
+    },
+    "inventory": {
+        "capacity": 26
+    },
+    "level": {
+        "level_up_base": 200
+    }
+}

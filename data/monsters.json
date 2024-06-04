@@ -7,9 +7,21 @@
             63
         ],
         "name": "Orc",
-        "blocks_movement": true,
-        "hp": 10,
-        "attack": 3
+        "ai_cls": "HostileEnemy",
+        "equipment": {},
+        "fighter": {
+            "hp": 10,
+            "base_defense": 0,
+            "base_power": 3,
+            "base_dexterity": 1,
+            "base_perception": 0
+        },
+        "inventory": {
+            "capacity": 0
+        },
+        "level": {
+            "xp_given": 35
+        }
     },
     "troll": {
         "char": "T",
@@ -19,8 +31,68 @@
             0
         ],
         "name": "Troll",
-        "blocks_movement": true,
-        "hp": 16,
-        "attack": 5
+        "ai_cls": "HostileEnemy",
+        "equipment": {},
+        "fighter": {
+            "hp": 16,
+            "base_defense": 1,
+            "base_power": 4,
+            "base_dexterity": 1,
+            "base_perception": 0
+        },
+        "inventory": {
+            "capacity": 0
+        },
+        "level": {
+            "xp_given": 100
+        }
+    },
+    "rat": {
+        "char": "r",
+        "color": [
+            122,
+            122,
+            122
+        ],
+        "name": "Rat",
+        "ai_cls": "SkittishEnemy",
+        "equipment": {},
+        "fighter": {
+            "hp": 2,
+            "base_defense": 0,
+            "base_power": 2,
+            "base_dexterity": 6,
+            "base_perception": 0
+        },
+        "inventory": {
+            "capacity": 0
+        },
+        "level": {
+            "xp_given": 5
+        }
+    },
+    "walking_cadaver": {
+        "char": "c",
+        "color": [
+            238,
+            122,
+            109
+        ],
+        "name": "Walking Cadaver",
+        "ai_cls": "HostileEnemy",
+        "equipment": {},
+        "fighter": {
+            "hp": 50,
+            "base_defense": 0,
+            "base_power": 5,
+            "base_dexterity": 0,
+            "base_perception": 0
+        },
+        "inventory": {
+            "capacity": 0
+        },
+        "level": {
+            "xp_given": 150
+        }
     }
 }

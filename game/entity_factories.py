@@ -1,134 +1,91 @@
+from copy import deepcopy
+import json
+import globals
+from game.entity import Actor, Item
 from game.ai import HostileEnemy, SkittishEnemy
 import game.consumable, game.equippable
 from game.equipment import Equipment
 from game.fighter import Fighter
 from game.inventory import Inventory
 from game.level import Level
-from game.entity import Actor, Item
+from game.player import create_player
 
 
-# The player
-player = Actor(
-    char="@",
-    color=(255, 255, 255),
-    name="Player",
-    ai_cls=HostileEnemy,
-    equipment=Equipment(),
-    fighter=Fighter(
-        hp=30, base_defense=1, base_power=2, base_dexterity=1, base_perception=1
-    ),
-    inventory=Inventory(capacity=26),
-    level=Level(level_up_base=200),
-)
+def load_data(file_path):
+    with open(file_path, "r") as file:
+        return json.load(file)
 
-# Monsters
-orc = Actor(
-    char="o",
-    color=(63, 127, 63),
-    name="Orc",
-    ai_cls=HostileEnemy,
-    equipment=Equipment(),
-    fighter=Fighter(
-        hp=10, base_defense=0, base_power=3, base_dexterity=1, base_perception=0
-    ),
-    inventory=Inventory(capacity=0),
-    level=Level(xp_given=35),
-)
-troll = Actor(
-    char="T",
-    color=(0, 127, 0),
-    name="Troll",
-    ai_cls=HostileEnemy,
-    equipment=Equipment(),
-    fighter=Fighter(
-        hp=16, base_defense=1, base_power=4, base_dexterity=1, base_perception=0
-    ),
-    inventory=Inventory(capacity=0),
-    level=Level(xp_given=100),
-)
-rat = Actor(
-    char="r",
-    color=(122, 122, 122),
-    name="Rat",
-    ai_cls=SkittishEnemy,
-    equipment=Equipment(),
-    fighter=Fighter(
-        hp=2, base_defense=0, base_power=2, base_dexterity=6, base_perception=0
-    ),
-    inventory=Inventory(capacity=0),
-    level=Level(xp_given=5),
-)
-walking_cadaver = Actor(
-    char="c",
-    color=(238, 122, 109),
-    name="Walking Cadaver",
-    ai_cls=HostileEnemy,
-    equipment=Equipment(),
-    fighter=Fighter(
-        hp=50, base_defense=0, base_power=5, base_dexterity=0, base_perception=0
-    ),
-    inventory=Inventory(capacity=0),
-    level=Level(xp_given=150),
-)
 
-# Scrolls & Consumables
-confusion_scroll = Item(
-    char="~",
-    color=(207, 63, 255),
-    name="Confusion Scroll",
-    consumable=game.consumable.ConfusionConsumable(number_of_turns=10),
-)
-fireball_scroll = Item(
-    char="~",
-    color=(255, 0, 0),
-    name="Fireball Scroll",
-    consumable=game.consumable.FireballDamageConsumable(damage=12, radius=3),
-)
-health_potion = Item(
-    char="!",
-    color=(127, 0, 255),
-    name="Health Potion",
-    consumable=game.consumable.HealingConsumable(amount=5),
-)
-large_health_potion = Item(
-    char="!",
-    color=(190, 0, 255),
-    name="Large Health Potion",
-    consumable=game.consumable.HealingConsumable(amount=10),
-)
-lightning_scroll = Item(
-    char="~",
-    color=(255, 255, 0),
-    name="Lightning Scroll",
-    consumable=game.consumable.LightningDamageConsumable(damage=20, maximum_range=5),
-)
+monsters = load_data("data/monsters.json")
+items = load_data("data/items.json")
+player_data = load_data("data/player.json")
 
-# Weapons & Armor
-dagger = Item(
-    char="|", color=(0, 191, 255), name="Dagger", equippable=game.equippable.Dagger()
-)
-sword = Item(
-    char="|", color=(0, 191, 255), name="Sword", equippable=game.equippable.Sword()
-)
-polearm = Item(
-    char="/", color=(173, 76, 0), name="Polearm", equippable=game.equippable.Polearm()
-)
 
-leather_armor = Item(
-    char="[",
-    color=(139, 69, 19),
-    name="Leather Armor",
-    equippable=game.equippable.LeatherArmor(),
-)
-chain_mail = Item(
-    char="[",
-    color=(139, 69, 19),
-    name="Chain Mail",
-    equippable=game.equippable.ChainMail(),
-)
-plate_mail = Item(
-    char="[",
-    color=(139, 69, 19),
-    name="Plate Mail",
-    equippable=game.equippable.PlateMail(),
-)
+def create_actor(config, x, y):
+    ai_cls = globals()[config["ai_cls"]]
+    fighter = Fighter(**config["fighter"])
+    inventory = Inventory(**config["inventory"])
+    equipment = Equipment()
+    level = Level(**config["level"])
+
+    return Actor(
+        x=x,
+        y=y,
+        char=config["char"],
+        color=tuple(config["color"]),
+        name=config["name"],
+        ai_cls=ai_cls,
+        equipment=equipment,
+        fighter=fighter,
+        inventory=inventory,
+        level=level,
+    )
+
+
+def create_item(config, x, y):
+    if "consumable" in config:
+        consumable_type = getattr(game.consumable, config["consumable"]["type"])
+        consumable = consumable_type(
+            **{k: v for k, v in config["consumable"].items() if k != "type"}
+        )
+        return Item(
+            x=x,
+            y=y,
+            char=config["char"],
+            color=tuple(config["color"]),
+            name=config["name"],
+            consumable=consumable,
+        )
+    elif "equippable" in config:
+        equippable_type = getattr(game.equippable, config["equippable"]["type"])
+        equippable = equippable_type()
+        return Item(
+            x=x,
+            y=y,
+            char=config["char"],
+            color=tuple(config["color"]),
+            name=config["name"],
+            equippable=equippable,
+        )
+    else:
+        return Item(
+            x=x,
+            y=y,
+            char=config["char"],
+            color=tuple(config["color"]),
+            name=config["name"],
+        )
+
+
+def spawn_monster(monster_name, x, y):
+    monster_config = monsters[monster_name]
+    return create_actor(monster_config, x, y)
+
+
+def spawn_item(item_name, x, y):
+    item_config = items[item_name]
+    return create_item(item_config, x, y)
+
+
+def spawn_player(x, y):
+    return create_player(x, y)
