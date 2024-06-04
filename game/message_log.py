@@ -3,7 +3,7 @@ import textwrap
 
 import tcod
 
-from game import white
+from globals import white
 
 
 class Message:

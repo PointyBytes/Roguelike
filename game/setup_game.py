@@ -14,7 +14,7 @@ from game.engine import Engine
 import game.entity_factories
 from game.game_map import GameWorld
 import game.input_handlers
-from data import background_image_file
+from globals import background_image_file
 
 
 # Load the background image and remove the alpha channel.

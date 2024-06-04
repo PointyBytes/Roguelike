@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Tuple, TYPE_CHECKING
 
-from game import (
+from globals import (
     hp_bar_empty,
     hp_bar_filled,
     hp_bar_text,

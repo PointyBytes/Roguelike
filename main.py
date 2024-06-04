@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import traceback
-
 import tcod
+
+import globals
 
 from game.exceptions import QuitWithoutSaving
 import game.input_handlers
@@ -20,7 +21,7 @@ def main() -> None:
     screen_height = 50
 
     tileset = tcod.tileset.load_tilesheet(
-        "data/Alloy_curses_12x12.png",
+        globals.game_tiles,
         columns=16,
         rows=16,
         charmap=tcod.tileset.CHARMAP_CP437,
@@ -51,7 +52,7 @@ def main() -> None:
                     # Then print the error to the message log.
                     if isinstance(handler, game.input_handlers.EventHandler):
                         handler.engine.message_log.add_message(
-                            traceback.format_exc(), game.error
+                            traceback.format_exc(), globals.error
                         )
         except QuitWithoutSaving:
             raise

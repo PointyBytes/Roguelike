@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from game import player_die, enemy_die
+from globals import player_die, enemy_die
 from game.base_component import BaseComponent
 from game.render_order import RenderOrder
 
