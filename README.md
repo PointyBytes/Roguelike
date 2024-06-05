@@ -5,6 +5,10 @@ After the player levels up the second time the player can become unbeatable and 
 
 
 ## Ideas I want to add:
+- Different Classes for the player to chose
+  - Rogue
+- More stats
+  - Constitution 
 - Traps
   - Spiks
   - Trapdoors
@@ -70,8 +74,7 @@ Not the controls at the moment but the controls I want to implement.
 * `ESC` - save menu
 * `Left Click` - select monster as target
 
-##
-
+## Map symbols
 ` `   A floor space
 `^`   A trap (known)
 `´`   A glyph of warding

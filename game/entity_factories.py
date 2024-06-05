@@ -88,4 +88,4 @@ def spawn_item(item_name, x, y):
 
 
 def spawn_player(x, y):
-    return create_player(x, y)
+    return create_player(x, y, player_data)

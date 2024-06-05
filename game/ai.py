@@ -207,3 +207,12 @@ class SkittishEnemy(BaseAI):
 
         # Otherwise, wait
         return WaitAction(self.entity).perform()
+
+
+class PassivePlayer(BaseAI):
+    def __init__(self, entity: Actor):
+        super().__init__(entity)
+        self.path: List[Tuple[int, int]] = []
+
+    def perform(self) -> None:
+        return WaitAction(self.entity).perform()
